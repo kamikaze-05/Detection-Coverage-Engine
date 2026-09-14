@@ -1,0 +1,20 @@
+title: Multiple Failed Logons (Password Guessing)
+id: 6f1a3c2d-4b5e-4a1c-8d2e-3f4a5b6c1d2e
+status: experimental
+description: Detects a burst of failed logon attempts against a single account, indicative of password guessing/brute force.
+references:
+  - https://attack.mitre.org/techniques/T1110/001/
+author: detection-coverage-engine
+tags:
+  - attack.credential_access
+  - attack.t1110.001
+logsource:
+  category: authentication
+  product: windows
+detection:
+  selection:
+    EventID: 4625
+  condition: selection | count() > 4
+falsepositives:
+  - Users who have forgotten their password
+level: medium

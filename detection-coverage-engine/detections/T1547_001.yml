@@ -1,0 +1,20 @@
+title: Registry Run Key Persistence
+id: 9b3e5f2a-6c1d-4b8e-a3f9-2d1c6b4a5e3f
+status: experimental
+description: Detects creation or modification of a Run/RunOnce registry autostart key.
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+author: detection-coverage-engine
+tags:
+  - attack.persistence
+  - attack.t1547.001
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection:
+    TargetObject|contains: '\CurrentVersion\Run\'
+  condition: selection
+falsepositives:
+  - Legitimate software installers registering autostart entries
+level: medium

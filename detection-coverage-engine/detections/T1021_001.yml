@@ -1,0 +1,21 @@
+title: Interactive RDP Logon
+id: 1c4a2b6e-8f3d-4e1a-9c2b-5f6a1d3e2c4b
+status: experimental
+description: Detects an interactive logon over RDP (LogonType 10), useful as a lateral-movement indicator when the source or account is unexpected.
+references:
+  - https://attack.mitre.org/techniques/T1021/001/
+author: detection-coverage-engine
+tags:
+  - attack.lateral_movement
+  - attack.t1021.001
+logsource:
+  category: authentication
+  product: windows
+detection:
+  selection:
+    EventID: 4624
+    LogonType: 10
+  condition: selection
+falsepositives:
+  - Legitimate remote administration
+level: low

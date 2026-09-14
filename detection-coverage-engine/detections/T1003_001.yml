@@ -1,0 +1,24 @@
+title: LSASS Memory Access (Credential Dumping)
+id: 7a2d4e1c-5b6f-4a3d-8e2c-9f1b2a3c4d5e
+status: experimental
+description: Detects process access to lsass.exe with access rights commonly associated with credential dumping tools.
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+author: detection-coverage-engine
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  category: process_access
+  product: windows
+detection:
+  selection:
+    TargetImage|endswith: '\lsass.exe'
+    GrantedAccess:
+      - '0x1410'
+      - '0x1010'
+      - '0x1438'
+  condition: selection
+falsepositives:
+  - Legitimate security/monitoring tools that read LSASS memory
+level: high

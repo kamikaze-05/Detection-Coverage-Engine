@@ -1,0 +1,23 @@
+title: PowerShell Execution with Encoded Command
+id: 3f1c2b6a-1a2b-4c3d-9e5f-1a2b3c4d5e6f
+status: experimental
+description: Detects powershell.exe invoked with base64-encoded command flags, a common obfuscation technique.
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+author: detection-coverage-engine
+tags:
+  - attack.execution
+  - attack.t1059.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - '-enc'
+      - '-encodedcommand'
+  condition: selection
+falsepositives:
+  - Legitimate administrative scripts using encoded commands
+level: high

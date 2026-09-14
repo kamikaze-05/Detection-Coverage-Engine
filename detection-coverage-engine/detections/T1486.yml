@@ -1,0 +1,23 @@
+title: Mass File Rename with Ransomware-style Extension
+id: 4d2e1a6c-9b3f-4a5d-8e1c-6a2b3d4c5e1f
+status: experimental
+description: Detects a burst of file writes with extensions commonly appended by ransomware during encryption.
+references:
+  - https://attack.mitre.org/techniques/T1486/
+author: detection-coverage-engine
+tags:
+  - attack.impact
+  - attack.t1486
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    TargetFilename|endswith:
+      - '.locked'
+      - '.encrypted'
+      - '.crypt'
+  condition: selection
+falsepositives:
+  - Legitimate encryption software (rare on endpoints)
+level: critical
